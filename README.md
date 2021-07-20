@@ -1,62 +1,174 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Thanks again! Now go create something AMAZING! :D
+***
+***
+***
+*** To avoid retyping too much info. Do a search and replace for the following:
+*** rivalless, sh-hangman, twitter_handle, email, project_title, project_description
+-->
 
+<!-- PROJECT LOGO -->
+<br />
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://github.com/rivalless/sh-hangman">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">project_title</h3>
+
+  <p align="center">
+    project_description
+    <br />
+    <a href="https://github.com/rivalless/sh-hangman"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/rivalless/sh-hangman">View Demo</a>
+    ·
+    <a href="https://github.com/rivalless/sh-hangman/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/rivalless/sh-hangman/issues">Request Feature</a>
+  </p>
 </p>
 
-## About Laravel
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<!-- ABOUT THE PROJECT -->
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## About The Project
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Built With
 
-## Learning Laravel
+-   [Vue](https://vuejs.org)
+-   [JQuery](https://jquery.com)
+-   [Laravel](https://laravel.com)
+-   [Inertia](https://inertiajs.com)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<!-- GETTING STARTED -->
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Getting Started
 
-## Laravel Sponsors
+To get a local copy up and running follow these simple steps.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Prerequisites
 
-### Premium Partners
+This is an example of how to list things you need to use the software and how to install them.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+-   npm
+    ```sh
+    npm install npm@latest -g
+    ```
+-   composer
+
+### Installation
+
+1. Clone the repo
+    ```sh
+    git clone https://github.com/rivalless/sh-hangman.git
+    ```
+2. Copy env file
+    ```sh
+    cp .env.example .env
+    ```
+3. Generate key
+    ```sh
+    php artisan key:generate
+    ```
+4. Install composer packages
+    ```sh
+    composer install
+    ```
+5. Install NPM packages
+    ```sh
+    npm install
+    ```
+
+<!-- USAGE EXAMPLES -->
+
+## Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<!-- ROADMAP -->
+
+## Roadmap
+
+See the [open issues](https://github.com/rivalless/sh-hangman/issues) for a list of proposed features (and known issues).
+
+<!-- CONTRIBUTING -->
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-## Code of Conduct
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<!-- LICENSE -->
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<!-- CONTACT -->
+
+## Contact
+
+Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+
+Project Link: [https://github.com/rivalless/sh-hangman](https://github.com/rivalless/sh-hangman)
+
+<!-- ACKNOWLEDGEMENTS -->
+
+## Acknowledgements
+
+-   []()
+-   []()
+-   []()
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/rivalless/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/rivalless/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/rivalless/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/rivalless/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/rivalless/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/rivalless/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/rivalless/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/rivalless/repo/issues
+[license-shield]: https://img.shields.io/github/license/rivalless/repo.svg?style=for-the-badge
+[license-url]: https://github.com/rivalless/repo/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/rivalless
