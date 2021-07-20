@@ -1,0 +1,364 @@
+<template>
+  <div class="game">
+    <div class="container">
+      <h1>Current player: {{ playing }}</h1>
+      <p id="quote" :class="{ strike: strikeout, highlight: puzzleComplete }">
+        <span v-for="(word, index) in splitQuote" :key="index">
+          <template v-for="(letter, index) in word" :key="index">
+            {{ isRevealed(letter) }}
+          </template>
+        </span>
+      </p>
+
+      <div class="status">
+        <h2>Strikes:</h2>
+        <ul class="status">
+          <li v-for="(strike, index) in strikes" :key="index">
+            {{ strike.icon }}
+          </li>
+        </ul>
+      </div>
+
+      <div id="button-board">
+        <button
+          v-for="(letter, index) in letters"
+          :key="index"
+          @click="guess(letter)"
+          :class="{
+            strike: badGuesses.includes(letter),
+            highlight: guesses.includes(letter),
+          }"
+          :disabled="guesses.includes(letter) || gameOver"
+        >
+          <span class="letter" :class="{ riser: guesses.includes(letter) }">{{
+            letter
+          }}</span>
+          <span class="background"></span>
+        </button>
+      </div>
+
+      <div class="status">
+        <p>{{ message }}</p>
+      </div>
+
+      <button id="new-game" @click="newGame" :class="{ highlight: gameOver }">
+        New game
+      </button>
+      <button id="exit" @click="exit" :class="{ highlight: gameOver }">
+        Exit
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+//defining the max number of failed attempts
+const allowedStrikes = 5;
+
+const defaultStrikes = new Array(allowedStrikes).fill({
+  icon: "⚪",
+  guess: "",
+});
+export default {
+  props: {
+    heroes: Array,
+    players: Object,
+  },
+  data() {
+    return {
+      letters: Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+      quotes: this.heroes,
+      currentQuote: "", //Filled by the mounted hook
+      guesses: [],
+      strikes: [...defaultStrikes],
+      gameOver: false,
+      currentPlayer: 0,
+    };
+  },
+  mounted() {
+    console.log(this.players);
+    this.pickAQuote();
+  },
+  methods: {
+    pickAQuote() {
+      const random = Math.floor(Math.random() * this.quotes.length);
+      this.currentQuote = this.quotes[random].toUpperCase();
+    },
+    //The function that turns unguessed letters into blank spots
+    isRevealed(letter) {
+      if (!letter.match(/[a-zA-Z\s]/)) {
+        return letter;
+      }
+      return this.guesses.includes(letter) || this.gameOver ? letter : "_";
+    },
+    //Handles the guess and all possible results
+    guess(letter) {
+      console.log(letter);
+      this.guesses.push(letter);
+      if (!this.currentQuote.includes(letter)) {
+        this.strikes.pop();
+        this.strikes = [{ icon: "🚫", guess: letter }, ...this.strikes];
+        if (Object.keys(this.players).length - 1 > this.currentPlayer) {
+          this.currentPlayer++;
+        } else {
+          this.currentPlayer = 0;
+        }
+      }
+      if (this.strikeout || this.puzzleComplete) {
+        this.gameOver = true;
+      }
+    },
+    newGame() {
+      const confirmation = confirm("End this game and start a new one?");
+      if (!confirmation) return;
+      this.pickAQuote();
+      this.guesses = [];
+      this.strikes = [...defaultStrikes];
+      this.gameOver = false;
+    },
+    exit() {
+      this.$inertia.get("/");
+    },
+  },
+  computed: {
+    playing() {
+      return this.players[this.currentPlayer];
+    },
+    splitQuote() {
+      return this.currentQuote.split(" ");
+    },
+    badGuesses() {
+      return this.strikes.filter((s) => s.guess).map((s) => s.guess);
+    },
+    strikeout() {
+      return this.badGuesses.length >= allowedStrikes;
+    },
+    puzzleComplete() {
+      return this.unrevealed === 0;
+    },
+    unrevealed() {
+      return [...this.currentQuote].filter((letter) => {
+        return letter.match(/[a-zA-Z]/) && !this.guesses.includes(letter);
+      }).length;
+    },
+    message() {
+      if (!this.gameOver) {
+        return "☝️ Pick a letter";
+      } else if (this.strikeout) {
+        return "❌ You lost this round. Try again?";
+      } else if (this.puzzleComplete) {
+        return "🎉 You win!";
+      }
+      //You can never be too safe ¯\_(ツ)_/¯
+      return "😬 Unforeseen error state, maybe try a new game?";
+    },
+  },
+};
+</script>
+
+<style scoped>
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #ffd100;
+}
+html {
+  font-size: 1.125em;
+  line-height: 1.5;
+}
+@media (min-width: 1200px) {
+  html {
+    font-size: 1.375em;
+  }
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-size: 1.5em;
+  font-family: "Rubik Mono One", "Pathway Gothic One";
+  color: #53565a;
+  background: #f1f6f8;
+}
+.container {
+  width: 100%;
+  max-width: 36rem;
+  margin: auto;
+  padding: 1rem;
+}
+@media (min-width: 600px) {
+  .container {
+    padding: 2rem;
+  }
+}
+#quote {
+  letter-spacing: 0.1em;
+  margin: 0 0 2rem;
+  font-size: 1.25rem;
+  line-height: 1.2em;
+  background: #e0ebf0;
+  border: 2px solid #53565a;
+  padding: 1rem 1rem 2rem;
+  box-shadow: 4px 4px 0 0 #7ba7bc;
+  position: relative;
+}
+@media (min-width: 600px) {
+  #quote {
+    font-size: 2rem;
+    margin: 1em 0 4rem;
+    padding: 2rem 2rem 3rem;
+  }
+}
+#quote.strike {
+  color: #d7dade;
+  background-color: #e4002b;
+}
+#quote.highlight {
+  background-color: #ffd100;
+}
+#quote span {
+  margin-right: 0.75em;
+  display: inline-block;
+}
+#quote small {
+  font-size: 0.5em;
+  position: absolute;
+  bottom: 0.5em;
+  left: 2em;
+}
+#button-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(1.5em, 1fr));
+  grid-gap: 0.5rem;
+}
+@media (min-width: 600px) {
+  #button-board {
+    grid-template-columns: repeat(auto-fit, minmax(2em, 1fr));
+  }
+}
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  padding: 0.4em 0.5em 0.3em 0.5em;
+  width: auto;
+  line-height: 1;
+  border: 2px solid #53565a;
+  color: inherit;
+  background: #e0ebf0;
+  font-size: 0.75em;
+  box-shadow: 4px 4px 0 0 #7ba7bc;
+  position: relative;
+  overflow: hidden;
+  transform-origin: bottom right;
+}
+@media (min-width: 600px) {
+  button {
+    font-size: 1em;
+  }
+}
+button .background {
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: #ffd100;
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.2s cubic-bezier(0.75, 0, 0.25, 1);
+}
+button:hover:not(:active):not([disabled]),
+button:focus:not(:active):not([disabled]) {
+  transform: translate(-1px, -1px);
+  box-shadow: 6px 6px 0 0 #7ba7bc;
+}
+button:not([disabled]):active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 #7ba7bc;
+}
+button.highlight .background {
+  transform: scaleY(1);
+}
+button.strike {
+  color: #d7dade;
+}
+button.strike .background {
+  background-color: #e4002b;
+}
+button#new-game {
+  margin-top: 2rem;
+}
+
+button#exit {
+  margin-top: 2rem;
+}
+
+@media (min-width: 600px) {
+  button#new-game {
+    margin-top: 4rem;
+  }
+}
+button .letter {
+  positon: relative;
+  z-index: 2;
+  color: inherit;
+}
+button[disabled]:not(.highlight) {
+  border-color: #a7a8aa;
+}
+button[disabled]:not(.highlight) .letter {
+  color: #a7a8aa;
+}
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  align-items: center;
+  margin: 1rem 0;
+}
+.status h2 {
+  font-size: 1rem;
+  margin: 0;
+}
+.status ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.status ul li {
+  margin-left: 0.25em;
+}
+.status p {
+  font-size: 1rem;
+  width: 100%;
+  margin: 0;
+}
+.riser {
+  animation: rise 0.3s cubic-bezier(0.5, 0, 0.5, 1);
+  display: block;
+}
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+  }
+  44.9% {
+    transform: translateY(-1.5em);
+  }
+  45% {
+    transform: translateY(1.5em);
+  }
+  55% {
+    transform: translateY(1.5em);
+  }
+  0% {
+    transform: translateY(0);
+  }
+}
+</style>
